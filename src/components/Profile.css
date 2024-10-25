@@ -1,0 +1,130 @@
+/* src/components/Profile.css */
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f0f4f8;
+    margin: 0;
+    padding: 0;
+}
+
+.profile-page {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 50px 30px;
+    background-color: #ffffff;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+    text-align: center;
+    transition: transform 0.3s ease-in-out;
+}
+
+.profile-page:hover {
+    transform: translateY(-10px);
+}
+
+.profile-page h1 {
+    font-size: 36px;
+    margin-bottom: 40px;
+    color: #333;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.profile-settings {
+    margin-top: 30px;
+}
+
+.styled-checkbox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 20px;
+    color: #555;
+    user-select: none;
+}
+
+.styled-checkbox input {
+    display: none;
+}
+
+.checkbox-custom {
+    width: 28px;
+    height: 28px;
+    border: 2px solid #007bff;
+    border-radius: 6px;
+    display: inline-block;
+    margin-right: 12px;
+    position: relative;
+    background-color: #fff;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.checkbox-inner {
+    width: 18px;
+    height: 18px;
+    background-color: #007bff;
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    display: none;
+    border-radius: 4px;
+}
+
+.styled-checkbox input:checked+.checkbox-custom {
+    background-color: #007bff;
+    border-color: #0056b3;
+}
+
+.styled-checkbox input:checked+.checkbox-custom .checkbox-inner {
+    display: block;
+}
+
+.checkbox-label {
+    font-weight: bold;
+    color: #333;
+}
+
+.sub-checkboxes {
+    margin-top: 20px;
+    text-align: left;
+}
+
+.sub-checkboxes label {
+    display: block;
+    margin: 10px 0;
+    font-size: 18px;
+}
+
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+    text-align: center;
+    z-index: 1000;
+}
+
+.popup p {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.popup button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.popup button:hover {
+    background-color: #0056b3;
+}
