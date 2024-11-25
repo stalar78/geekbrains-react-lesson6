@@ -1,21 +1,19 @@
-// src/components/Chats.js
-import React, { useState } from 'react';
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Routes, Route, Link, useParams } from 'react-router-dom';
+import { getChats } from '../store/reducers/chatsSelectors';
+import { getMessagesByChatId } from '../store/reducers/messagesSelectors';
 
 const Chats = () => {
-    const [chats, setChats] = useState([
-        { id: 1, name: 'Чат 1' },
-        { id: 2, name: 'Чат 2' },
-        { id: 3, name: 'Чат 3' },
-    ]);
+    const chats = useSelector(getChats);
+    const dispatch = useDispatch();
 
     const addChat = () => {
-        const newChatId = chats.length + 1;
-        setChats([...chats, { id: newChatId, name: `Чат ${newChatId}` }]);
+        dispatch({ type: 'ADD_CHAT' });
     };
 
     const deleteChat = (chatId) => {
-        setChats(chats.filter(chat => chat.id !== chatId));
+        dispatch({ type: 'DELETE_CHAT', payload: chatId });
     };
 
     const ChatList = () => {
@@ -23,7 +21,7 @@ const Chats = () => {
             <div className="chat-list">
                 <h2>🔥 Список чатов 🔥</h2>
                 <ul>
-                    {chats.map(chat => (
+                    {chats.map((chat) => (
                         <li key={chat.id}>
                             <Link to={`/chats/${chat.id}`}>{chat.name}</Link>
                             <button onClick={() => deleteChat(chat.id)}>❌ Удалить</button>
@@ -37,27 +35,28 @@ const Chats = () => {
 
     const Chat = () => {
         const { chatId } = useParams();
-        const chat = chats.find(chat => chat.id === parseInt(chatId));
-
-        const [messages, setMessages] = useState([]);
-        const [newMessage, setNewMessage] = useState("");
-
-        if (!chat) {
-            return <div>⚠️ Чат не найден.</div>;
-        }
+        const messages = useSelector((state) => getMessagesByChatId(state, chatId));
+        const [newMessage, setNewMessage] = React.useState("");
 
         const handleSendMessage = () => {
             if (newMessage.trim() !== "") {
-                setMessages([...messages, newMessage]);
+                dispatch({
+                    type: 'ADD_MESSAGE',
+                    payload: { chatId, message: newMessage },
+                });
                 setNewMessage("");
             }
         };
 
+        if (!chats.find((chat) => chat.id === parseInt(chatId))) {
+            return <div>⚠️ Чат не найден.</div>;
+        }
+
         return (
             <div className="chat-content">
-                <h3>💬 {chat.name}</h3>
+                <h3>💬 {chats.find((chat) => chat.id === parseInt(chatId)).name}</h3>
                 <div>
-                    {messages.length > 0 ? (
+                    {messages && messages.length > 0 ? (
                         messages.map((msg, index) => (
                             <div key={index} className="message">
                                 {msg}

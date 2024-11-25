@@ -1,7 +1,7 @@
+// src/store/index.js
 import { createStore } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
-import rootReducer from './reducers';
+import rootReducer from './reducers';  // Убедись, что путь корректный
 
-const store = createStore(rootReducer, composeWithDevTools());
+const store = createStore(rootReducer);
 
 export default store;
